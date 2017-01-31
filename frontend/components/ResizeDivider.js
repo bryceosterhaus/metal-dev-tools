@@ -12,7 +12,7 @@ class ResizeDivider extends Component {
 	}
 
 	attached() {
-		this.element.addEventListener('mousedown', this.initDrag, false);
+		this.on('mousedown', this.initDrag);
 	}
 
 	doDrag({clientX}) {
@@ -21,7 +21,7 @@ class ResizeDivider extends Component {
 
 	initDrag() {
 		document.body.addEventListener('mousemove', this.doDrag, false);
-		document.body.addEventListener( 'mouseup', this.stopDrag, false);
+		document.body.addEventListener('mouseup', this.stopDrag, false);
 	}
 
 	stopDrag() {
