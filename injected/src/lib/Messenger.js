@@ -1,5 +1,7 @@
 import EventEmitter from 'events';
 
+import * as messageTypes from '../../../shared/messageTypes';
+
 class Messenger extends EventEmitter {
 	constructor() {
 		super();
@@ -20,7 +22,7 @@ class Messenger extends EventEmitter {
 			{
 				message: {
 					data,
-					type: 'detached'
+					type: messageTypes.DETACHED
 				},
 				from: 'backend'
 			},
@@ -33,7 +35,7 @@ class Messenger extends EventEmitter {
 			{
 				message: {
 					data,
-					type: 'update'
+					type: messageTypes.UPDATE
 				},
 				from: 'backend'
 			},
@@ -46,7 +48,7 @@ class Messenger extends EventEmitter {
 			{
 				message: {
 					data,
-					type: 'selected'
+					type: messageTypes.SELECTED
 				},
 				from: 'backend'
 			},
@@ -59,7 +61,7 @@ class Messenger extends EventEmitter {
 			{
 				message: {
 					data,
-					type: 'newRoot'
+					type: messageTypes.NEW_ROOT
 				},
 				from: 'backend'
 			},
