@@ -39,7 +39,6 @@ class RootManager extends EventEmitter {
 		this._listeners = {};
 		this._mask = null;
 		this._maskDimensions = null;
-		this._messenger = new Messenger();
 		this._roots = [];
 
 		this.on('addRoot', this._handleNewRoot);
@@ -111,10 +110,7 @@ class RootManager extends EventEmitter {
 	}
 
 	selectComponent(id) {
-		this._messenger.emit(
-			'selected',
-			this.processComponentObj(this._componentMap[id])
-		);
+		Messenger.informSelected(this.processComponentObj(this._componentMap[id]));
 	}
 
 	_attachComponentListeners(component, rootComponent) {
@@ -132,7 +128,7 @@ class RootManager extends EventEmitter {
 
 			component.on(
 				'detached',
-				() => this._messenger.emit('detached', {id})
+				() => Messenger.informDetached({id})
 			);
 		}
 	}
@@ -145,10 +141,7 @@ class RootManager extends EventEmitter {
 
 			setTimeout(
 				() => {
-					this._messenger.emit(
-						'update',
-						this._traverseTree(rootComponent, rootComponent)
-					);
+					Messenger.informUpdate(this._traverseTree(rootComponent, rootComponent));
 
 					updateScheduled[rootId] = false;
 				},
@@ -160,7 +153,7 @@ class RootManager extends EventEmitter {
 	_handleInitialRoots() {
 		this._roots.forEach(
 			root => {
-				this._messenger.emit('root', this._traverseTree(root, root));
+				Messenger.informNewRoot(this._traverseTree(root, root));
 			}
 		);
 	}
